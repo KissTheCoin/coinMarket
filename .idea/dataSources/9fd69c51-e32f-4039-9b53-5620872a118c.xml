@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="coin_market@127.0.0.1">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="coin_market">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="aibtc"/>
+    <schema id="4" parent="1" name="huobi"/>
+    <schema id="5" parent="1" name="huobi-bit"/>
+    <schema id="6" parent="1" name="information_schema"/>
+    <schema id="7" parent="1" name="jijin"/>
+    <schema id="8" parent="1" name="lsj"/>
+    <schema id="9" parent="1" name="mysql"/>
+    <schema id="10" parent="1" name="onethink"/>
+    <schema id="11" parent="1" name="pandas"/>
+    <schema id="12" parent="1" name="performance_schema"/>
+    <schema id="13" parent="1" name="sys"/>
+    <schema id="14" parent="1" name="test"/>
+    <schema id="15" parent="1" name="wordpress"/>
+    <table id="16" parent="2" name="market_trades"/>
+    <column id="17" parent="16" name="id">
+      <Position>1</Position>
+      <DataType>int(11) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="18" parent="16" name="market">
+      <Position>2</Position>
+      <Comment>交易市场</Comment>
+      <DataType>tinyint(2) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="16" name="coin">
+      <Position>3</Position>
+      <Comment>火币类型</Comment>
+      <DataType>tinyint(2) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="20" parent="16" name="date">
+      <Position>4</Position>
+      <Comment>交易时间</Comment>
+      <DataType>int(11) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="21" parent="16" name="amount">
+      <Position>5</Position>
+      <Comment>成交数量</Comment>
+      <DataType>decimal(15,6) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="22" parent="16" name="price">
+      <Position>6</Position>
+      <Comment>成交价格</Comment>
+      <DataType>decimal(10,3) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="23" parent="16" name="type">
+      <Position>7</Position>
+      <Comment>成交方向 1 买 2 卖</Comment>
+      <DataType>tinyint(1) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="24" parent="16" name="tid">
+      <Position>8</Position>
+      <Comment>关联id</Comment>
+      <DataType>bigint(20) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="25" parent="16" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

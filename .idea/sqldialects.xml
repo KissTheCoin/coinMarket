@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SqlDialectMappings">
-    <file url="dbSrc:///2c58d031/9fd69c51-e32f-4039-9b53-5620872a118c" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/market/DB.py" dialect="MySQL" />
-  </component>
-</project>

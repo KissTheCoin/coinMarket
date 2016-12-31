@@ -3,6 +3,7 @@
 import DB
 import captureTrades
 import constant
+import time
 
 
 def huobiTrades():
@@ -25,3 +26,4 @@ def okcoinTrades():
 
 huobiTrades()
 okcoinTrades()
+time.sleep(1)

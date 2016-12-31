@@ -2,9 +2,7 @@
 
 import DB
 import captureTrades
-import time
 import constant
-import logging
 
 
 def huobiTrades():
@@ -25,15 +23,5 @@ def okcoinTrades():
         DB.insertTrades(tradesList)
 
 
-while True:
-    try:
-        huobiTrades()
-    except:
-        logging.error('执行火币交易抓取失败')
-        time.sleep(10)
-    try:
-        okcoinTrades()
-    except:
-        logging.error('执行OK交易抓取失败')
-        time.sleep(10)
-    time.sleep(1)
+huobiTrades()
+okcoinTrades()

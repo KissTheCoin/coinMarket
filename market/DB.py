@@ -57,7 +57,7 @@ def insertTrades(tradesList):
             dbconn.rollback()
 
 
-def queryTradesOrderById(id):
+def queryTradesOrderById(id, limit):
     """
     查询大于这个ID成交记录
     :param id:
@@ -65,7 +65,7 @@ def queryTradesOrderById(id):
     """
     # TODO 只支持火币BTC的
     sql = 'SELECT id, price, amount, `date` FROM market_trades ' \
-          'WHERE id > %d AND market = 1 AND coin = 1 ORDER BY id ASC LIMIT 100' % (id)
+          'WHERE id > %d AND market = 1 AND coin = 1 ORDER BY id ASC LIMIT %d' % (id, limit)
     cursor = dbconn.cursor()
     cursor.execute(sql)
     res = cursor.fetchall()

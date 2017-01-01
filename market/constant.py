@@ -24,3 +24,14 @@ _OKCOIN_TRADES_URL = {
     _BTC : 'https://www.okcoin.cn/api/v1/trades.do?symbol=btc_cny&since=%s',
     _LTC : 'https://www.okcoin.cn/api/v1/trades.do?symbol=ltc_cny&since=%s'
 }
+
+_K_TYPE_1MIN = 1
+_K_TYPE_5MIN = 5
+_K_TYPE_10MIN = 10
+_K_TYPE_30MIN = 30
+_K_TYPE_1HOUR = 60
+_K_TYPE_4HOUR = 240
+_K_TYPE_12HOUR = 720
+_K_TYPE_1DAY = 1440
+_K_TYPE_1WEEK = 10080
+_K_TYPE_1MONTH = 43200

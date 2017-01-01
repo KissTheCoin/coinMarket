@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import MySQLdb
+
 import config
 import logging
 
@@ -34,6 +35,11 @@ def queryLastTid(market, coin):
 
 
 def insertTrades(tradesList):
+    """
+    插入一笔成交记录
+    :param tradesList:
+    :return:
+    """
     if len(tradesList) <= 0:
         return
     for trade in tradesList:
@@ -49,4 +55,92 @@ def insertTrades(tradesList):
         except:
             logging.error('数据库错误，执行插入成交记录的过程中...')
             dbconn.rollback()
-            return
+
+
+def queryTradesOrderById(id):
+    """
+    查询大于这个ID成交记录
+    :param id:
+    :return:
+    """
+    # TODO 只支持火币BTC的
+    sql = 'SELECT id, price, amount, `date` FROM market_trades ' \
+          'WHERE id > %d AND market = 1 AND coin = 1 ORDER BY id ASC LIMIT 100' % (id)
+    cursor = dbconn.cursor()
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    if res is None:
+        return None
+    tradeArr = []
+    for r in res:
+        trade = {
+            'id': r[0],
+            'price': r[1],
+            'amount': r[2],
+            'date': r[3]
+        }
+        tradeArr.append(trade)
+    return tradeArr
+
+
+def queryKLineOne(kType, kIndex):
+    """
+    查询指定K线类型与索引的K线数据
+    :param kType:
+    :param kIndex:
+    :return:
+    """
+    sql = 'SELECT * FROM market_kline WHERE k_type = %d AND k_index = %d LIMIT 1' % (kType, kIndex)
+    try:
+        cursor = dbconn.cursor()
+        cursor.execute(sql)
+        res = cursor.fetchone()
+        return res
+    except:
+        logging.error('数据库出错，查询k线数据出错')
+        dbconn.rollback()
+
+
+def insertKLine(kLine):
+    """
+    插入一条K线数组
+    :param kLine:
+    :return:
+    """
+    sql = """
+    REPLACE INTO market_kline (k_type, k_index, high, low, `open`, `close`, volume, `date`)
+    VALUES (%d, %d, %.3f, %.3f, %.3f, %.3f, %.6f, %d)
+    """ % (kLine['kType'], kLine['kIndex'], kLine['high'], kLine['low'],
+           kLine['open'], kLine['close'], kLine['volume'], kLine['date'])
+    try:
+        cursor = dbconn.cursor()
+        cursor.execute(sql)
+        dbconn.commit()
+    except:
+        logging.error('数据库错误，执行插入KLine记录的过程中...')
+        dbconn.rollback()
+
+
+def configQueryByApp(app):
+    """
+    查询指定的配置项值
+    :param app:
+    :return:
+    """
+    sql = "SELECT val FROM config WHERE app = '%s' LIMIT 1" % (app)
+    cursor = dbconn.cursor()
+    cursor.execute(sql)
+    return cursor.fetchone()[0]
+
+
+def configUpdateByApp(app, val):
+    """
+    更新指定的配置项
+    :param app:
+    :param val:
+    :return:
+    """
+    sql = "UPDATE config SET val = '%s' WHERE app = '%s'" % (val, app)
+    cursor = dbconn.cursor()
+    cursor.execute(sql)
+    dbconn.commit()

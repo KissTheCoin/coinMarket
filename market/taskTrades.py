@@ -24,6 +24,7 @@ def okcoinTrades():
         DB.insertTrades(tradesList)
 
 
-huobiTrades()
-okcoinTrades()
-time.sleep(1)
+while True:
+    huobiTrades()
+    # okcoinTrades()
+    time.sleep(1)

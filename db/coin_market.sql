@@ -1,29 +1,3 @@
-# ************************************************************
-# Sequel Pro SQL dump
-# Version 4541
-#
-# http://www.sequelpro.com/
-# https://github.com/sequelpro/sequelpro
-#
-# Host: 127.0.0.1 (MySQL 5.7.12)
-# Database: coin_market
-# Generation Time: 2016-12-31 10:12:12 +0000
-# ************************************************************
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
-# Dump of table market_trades
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `market_trades`;
 
 CREATE TABLE `market_trades` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -38,11 +12,24 @@ CREATE TABLE `market_trades` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `config` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `app` varchar(20) NOT NULL DEFAULT '' COMMENT '程序项',
+  `val` varchar(100) NOT NULL DEFAULT '' COMMENT '程序值',
+  PRIMARY KEY (`id`),
+  KEY `idx_app` (`app`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+INSERT INTO `config` (app, val) VALUES ('calTradesLastId', '0');
 
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE `market_kline` (
+  `k_type` smallint(5) unsigned NOT NULL COMMENT 'K线类型',
+  `k_index` int(11) unsigned NOT NULL COMMENT 'K线索引',
+  `high` decimal(10,3) unsigned NOT NULL COMMENT '最高价',
+  `low` decimal(10,3) unsigned NOT NULL COMMENT '最低价',
+  `open` decimal(10,3) unsigned NOT NULL COMMENT '开盘价',
+  `close` decimal(10,3) unsigned NOT NULL COMMENT '收盘价',
+  `volume` decimal(15,6) unsigned NOT NULL COMMENT '成家量',
+  `date` int(11) unsigned NOT NULL COMMENT '时间',
+  UNIQUE KEY `idx_type_index` (`k_type`,`k_index`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -20,7 +20,7 @@ CREATE TABLE `config` (
   KEY `idx_app` (`app`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `config` (app, val) VALUES ('calTradesLastId', '0');
+
 
 CREATE TABLE `market_kline` (
   `k_type` smallint(5) unsigned NOT NULL COMMENT 'K线类型',

@@ -108,10 +108,13 @@ def insertKLine(kLine):
     :return:
     """
     sql = """
-    REPLACE INTO market_kline (k_type, k_index, high, low, `open`, `close`, volume, `date`)
+    INSERT INTO market_kline (k_type, k_index, high, low, `open`, `close`, volume, `date`)
     VALUES (%d, %d, %.3f, %.3f, %.3f, %.3f, %.6f, %d)
+    ON DUPLICATE KEY UPDATE
+    high = %.3f, low = %.3f, `open` = %.3f, `close` = %.3f, volume = %.3f
     """ % (kLine['kType'], kLine['kIndex'], kLine['high'], kLine['low'],
-           kLine['open'], kLine['close'], kLine['volume'], kLine['date'])
+           kLine['open'], kLine['close'], kLine['volume'], kLine['date'],
+           kLine['high'], kLine['low'], kLine['open'], kLine['close'], kLine['volume'])
     try:
         cursor = dbconn.cursor()
         cursor.execute(sql)
